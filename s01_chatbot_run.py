@@ -13,8 +13,11 @@ def timestamp():
     return datetime.now().strftime("%I:%M %p")
 
 ## Ang aking API Info ----
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
+import os
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+
 
 # Initialize Session ----
 if "prompt0_done" not in st.session_state:
