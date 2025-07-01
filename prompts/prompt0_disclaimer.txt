@@ -11,4 +11,4 @@ By continuing, you acknowledge that all scenarios used in this simulation are fi
 
 Do you acknowledge and accept this disclaimer before we proceed?
 	
-Stop here if the clinician accepts the disclaimer. Do not proceed to prompt 1.
+If the clinician accepts the disclaimer, then proceed to prompt 1.
