@@ -134,12 +134,25 @@ elif st.session_state.prompt1_active:
         elif st.session_state.awaiting_feedback_prompt and not st.session_state.feedback_given:
             if user_input.lower().strip() in ["yes", "sure", "ok", "okay"]:
                 st.session_state.messages1.append(AIMessage(content="Thank you. The feedback section will now begin."))
-
                 transcript = "\n".join([
                     f"You (Doctor): {m.content}" if isinstance(m, HumanMessage) else f"Patient: {m.content}"
                     for m in st.session_state.messages1 if isinstance(m, (HumanMessage, AIMessage))
                 ])
-                feedback_prompt = prompt2_text.replace("{transcript}", transcript)
+
+                # Request feedback with summary
+                feedback_instruction = prompt2_text.replace("{transcript}", transcript)
+                feedback_prompt = f"""
+You are a feedback coach who has read the full transcript of a simulated patient-clinician encounter.
+
+First, briefly summarize the conversation (3-4 sentences) so the user knows you understood it.
+Then, give kind, evidence-based communication feedback based on the conversation.
+
+Transcript:
+{transcript}
+
+Begin your feedback:
+{feedback_instruction}
+"""
                 st.session_state.messages2 = [SystemMessage(content=feedback_prompt)]
 
                 st.session_state.prompt1_active = False
